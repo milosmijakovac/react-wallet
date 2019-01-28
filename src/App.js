@@ -1,25 +1,49 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import CashInput from "./components/CashInput";
 
 class App extends Component {
+  state = {
+    amount: 0,
+    deposit: null,
+    withdraw: null
+  };
+
+  addDeposit = cash => {
+    let amount = parseInt(cash.deposit)
+    this.setState({
+      ...this.state,
+      deposit: cash.deposit,
+      amount 
+    });
+  };
+
+  
+withdrawMoney = cash => {
+
+  this.setState({
+    ...this.state,
+    withdraw: cash.withdraw,
+    amount: this.state.amount - this.state.withdraw
+  })
+}
+
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Header />
+        <CashInput
+         
+          addDeposit={this.addDeposit}
+          withdrawMoney={this.withdrawMoney}
+        />
+
+        <div className="amount">
+          <h5>Amount: </h5>
+          {this.state.amount}
+        </div>
       </div>
     );
   }
